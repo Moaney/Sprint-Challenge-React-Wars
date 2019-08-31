@@ -10,8 +10,8 @@ const App = () => {
     axios
       .get("https://swapi.co/api/people")
       .then(res => {
-        console.log(res.data);
-        setData(res.data);
+        console.log(res.data.results);
+        setData(res.data.results);
       })
       .catch(err => console.log(err));
   }, []);
@@ -20,11 +20,14 @@ const App = () => {
     <div className="App">
       <h1 className="Header">React Wars</h1>
         <h2>Star Wars Characters:</h2>
-        <div>
+        <ol>
           {data.map((person) => (
-              <h3>{person.name}</h3>
+            <div>
+              <li>{person.name}</li>
+              <p>{person.birth_year}</p>
+              </div>
           ))}
-          </div>
+          </ol>
         </div>
   );
 }
