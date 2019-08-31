@@ -21,8 +21,8 @@ const App = () => {
       <h1 className="Header">React Wars</h1>
         <h2>Star Wars Characters:</h2>
         <ol>
-          {data.map((person) => (
-            <div>
+          {data.map((person, index) => (
+            <div key={index}>
               <li>{person.name}</li>
               <p>{person.birth_year}</p>
               </div>
