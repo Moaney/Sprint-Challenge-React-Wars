@@ -1,18 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
 import './App.css';
 
 const App = () => {
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
+  const [data, setData] = useState([]);
 
-  // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a 
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
+  useEffect(() =>{
+    axios
+      .get("https://swapi.co/api/people")
+      .then(res => {
+        console.log(res.data.results);
+        setData(res.data.results);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  const Div = styled.div `
+  margin: auto;
+  box-sizing: border-box;
+  width: 400px;
+  height: 200px;
+  padding: 30px;  
+  border: 10px solid goldenrod;
+  color: navy;
+  `
+
+  const H1 = styled.h1 `
+  font-family: 'Russo One', sans-serif;
+  `
+
+  const H2 = styled.h2 `
+  font-family: 'Saira', sans-serif;
+  font-size: 2rem;
+  `
+  const H3 = styled.h3 `
+  font-family: 'Khand', sans-serif;
+  font-size: 1.4rem;
+  `
+
+  const P = styled.p `
+  font-family: 'Bahianita', cursive;
+  font-size: 1.8rem;
+  `
 
   return (
     <div className="App">
-      <h1 className="Header">React Wars</h1>
-    </div>
+      <H1 className="Header">React Wars</H1>
+        <H2>Star Wars Characters:</H2>
+        <div>
+          {data.map((person, index) => (
+            <Div key={index}>
+              <H3>{person.name}</H3>
+              <P>{person.birth_year}</P>
+              </Div>
+          ))}
+          </div>
+        </div>
   );
 }
 
